@@ -16,7 +16,7 @@ Note that the data you write must fit in memory.
 
 ```javascript
 net = require('net');
-Metastream = require('./metastream');
+Metastream = require('metastream');
 
 var server = net.createServer(function(c) {
   var outp = new Metastream(c);
