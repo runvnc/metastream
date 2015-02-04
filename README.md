@@ -12,12 +12,14 @@ Here are a few usage examples in one of my current projects:
 
 * Relay/proxy system for a home server behind a router doing NAT, single connection multiplexing multiple connects, sending socket ID along with data.
 
+Note that the data you write must fit in memory.
+
 ```javascript
 net = require('net');
-metastream = require('./metastream');
+Metastream = require('./metastream');
 
 var server = net.createServer(function(c) {
-  var outp = metastream(c);
+  var outp = new Metastream(c);
   outp.write({id: 'bob'}, new Buffer('Bob Test'));
   outp.on(function(meta, data) {
     console.log('server recvd from ' + meta.id + ': ' + data.toString());
@@ -27,10 +29,10 @@ var server = net.createServer(function(c) {
 server.listen(6345);
 
 var client = net.connect({port: 6345}, function() {
-  var conn = metastream(client);
+  var conn = new Metastream(client);
   conn.on(function(meta, data) {
     console.log('client recvd from ' + meta.id + ': ' + data.toString();
-    conn.write({id: 'tom'}, "Tom received data " + data.toString() + ' back at yah');
+    conn.write({id: 'tom'}, new Buffer("Tom received data " + data.toString() + ' back at yah'));
   });
 });
 
