@@ -1,0 +1,16 @@
+{
+  "name": "metastream",
+  "version": "1.0.3",
+  "description": "Attach metadata (JSON) to streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:runvnc/metastream"
+  },
+  "keywords": [ "metadata", "buffer", "meta", "json", "stream", "buffers" ],
+  "author": "Jason Livesay",
+  "license": "ISC"
+}
