@@ -21,6 +21,7 @@ var client = net.connect({port: 6345}, function() {
   conn.on(function(meta, data) {
     console.log('client recvd from ' + meta.id + ': ' + data.toString());
     conn.write({id: 'tom'}, new Buffer("Tom received data " + data.toString() + ' back at yah'));
+    conn.write({id: 'ed'}, new Buffer("Pretending to be ed"));
   });
 });
 
