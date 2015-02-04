@@ -8,7 +8,7 @@ will avoid that.
 
 Here are a few usage examples in one of my current projects:
 
-* Transmitting files for backup, currently using protocol buffers to send filename etc. along with data, metabuffers would also work fine.
+* Transmitting files for backup, currently using protocol buffers to send filename etc. along with data, metastreams would also work fine.
 
 * Relay/proxy system for a home server behind a router doing NAT, single connection multiplexing multiple connects, sending socket ID along with data.
 
