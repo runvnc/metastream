@@ -48,13 +48,18 @@ module.exports = function(stream) {
 
   self.read = function(buffer) {
     if (_partNum === Infinity) nextPart();
-    var bytesCopied = Math.min(buffer.length, _remaining);
-
+    var bytesCopied = Math.min(buffer.length-_pos, _remaining);
+    
+    if (buffer.length-_pos > bytesCopied) {
+      var leftAtEnd = buffer.length-(_pos+bytesCopied);
+    } else {
+      var leftAtEnd = 0;
+    }
     buffer.copy(_buffer, _partPos, _pos, _pos+bytesCopied);
     _pos += bytesCopied;
     _partPos += bytesCopied;
     _remaining -= bytesCopied;
-    if (_remaining > 0) { 
+    if (_remaining > 0) {
       nextPart();
       return self.read(buffer);
     } else {
@@ -65,6 +70,11 @@ module.exports = function(stream) {
         _pos = 0;
         _partPos = 0;
         self.onData(extracted.meta, extracted.buffer);
+        _fullBuffer = new Buffer('');
+        if (leftAtEnd > 0) {
+          _pos = buffer.length-leftAtEnd;
+          self.read(buffer);
+        }
       } else {
         switch (_partName) {
           case 'totalLength':
@@ -106,6 +116,9 @@ module.exports = function(stream) {
   }
 
   this.write = function(meta, buffer) {
+    if (buffer === null || buffer === undefined) {
+      buffer = new Buffer(' ');
+    }
     var newBuffer = self.addMeta(buffer, meta);
     self.stream.write(newBuffer);
   }
