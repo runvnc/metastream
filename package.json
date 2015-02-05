@@ -1,6 +1,6 @@
 {
   "name": "metastream",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Attach metadata (JSON) to streams",
   "main": "index.js",
   "repository": {
