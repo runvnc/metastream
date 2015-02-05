@@ -60,8 +60,12 @@ module.exports = function(stream) {
     _partPos += bytesCopied;
     _remaining -= bytesCopied;
     if (_remaining > 0) {
-      nextPart();
-      return self.read(buffer);
+      if (_pos === buffer.length) {
+        return;
+      } else {
+        nextPart();
+        return self.read(buffer);
+      }
     } else {
       _fullBuffer = Buffer.concat([_fullBuffer, _buffer]);
       if (_partNum === _parts.length - 1) {
