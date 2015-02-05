@@ -77,7 +77,9 @@ module.exports = function(stream) {
 				break;
 		}
 	}
-    var totalLength = buffer.readUInt32LE(0);
+
+	self.extract = function(buffer) {
+	  var totalLength = buffer.readUInt32LE(0);
     var jsonLength = buffer.readUInt16LE(4);
     var json = buffer.toString('utf8', 6, jsonLength+6);
     var meta = JSON.parse(json);
