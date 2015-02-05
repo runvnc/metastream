@@ -77,8 +77,6 @@ module.exports = function(stream) {
 				break;
 		}
 	}
-
-  self.extract = function (buffer) {
     var totalLength = buffer.readUInt32LE(0);
     var jsonLength = buffer.readUInt16LE(4);
     var json = buffer.toString('utf8', 6, jsonLength+6);
@@ -87,8 +85,7 @@ module.exports = function(stream) {
   }
 
   self.stream.on('data', function(data) {
-    console.log('meatstream read data from stream! ' + data.toString());
-		self.read(data);
+    self.read(data);
   });
 
   this.addMeta = function(buffer, meta) {
