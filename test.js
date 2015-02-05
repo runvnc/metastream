@@ -26,7 +26,9 @@ var client = net.connect({port: 6345}, function() {
       bigStr += '0123456789';
 		}
 		bigStr = '[START]'+bigStr+'[END]';
-		conn.write({id:'big'}, new Buffer(bigStr));
+		setTimeout(function() {
+		  conn.write({id:'big'}, new Buffer(bigStr));
+    }, 1000);
 	});
 });
 
