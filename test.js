@@ -21,7 +21,13 @@ var client = net.connect({port: 6345}, function() {
     console.log('client recvd from ' + meta.id + ': ' + data.toString());
     conn.write({id: 'tom'}, new Buffer("Tom received data " + data.toString() + ' back at yah'));
     conn.write({id: 'ed'}, new Buffer('Hey'));
-  });
+    var bigStr = '';
+		for (var x=0; x<1000; x++) {
+      bigStr += '0123456789';
+		}
+		bigStr = '[START]'+bigStr+'[END]';
+		conn.write({id:'big'}, new Buffer(bigStr));
+	});
 });
 
 
