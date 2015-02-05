@@ -1,0 +1,48 @@
+{
+  "name": "metastream",
+  "version": "1.0.4",
+  "description": "Attach metadata (JSON) to streams",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:runvnc/metastream"
+  },
+  "keywords": [
+    "metadata",
+    "buffer",
+    "meta",
+    "json",
+    "stream",
+    "buffers"
+  ],
+  "author": {
+    "name": "Jason Livesay"
+  },
+  "license": "ISC",
+  "gitHead": "0281bcf75e452d8825e926dffa0e4a72f8fdde12",
+  "bugs": {
+    "url": "https://github.com/runvnc/metastream/issues"
+  },
+  "homepage": "https://github.com/runvnc/metastream",
+  "_id": "metastream@1.0.4",
+  "scripts": {},
+  "_shasum": "01d518510f1a014d3726f01c38aa841f6d195dc1",
+  "_from": "metastream@",
+  "_npmVersion": "1.4.28",
+  "_npmUser": {
+    "name": "runvnc",
+    "email": "ithkuil@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "runvnc",
+      "email": "ithkuil@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "01d518510f1a014d3726f01c38aa841f6d195dc1",
+    "tarball": "http://registry.npmjs.org/metastream/-/metastream-1.0.4.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/metastream/-/metastream-1.0.4.tgz"
+}
