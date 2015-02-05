@@ -12,8 +12,6 @@ module.exports = function(stream) {
 	var pos = 0;
 
 	self.newData = function(buffer) {
-    console.log('extracting start is');
-		outstart();
 		var extracted = self.extract(buffer);
 		self.onData(extracted.meta, extracted.buffer);
 	}
@@ -28,20 +26,15 @@ module.exports = function(stream) {
 	}
 
 	self.read = function(buffer) {
-    console.log(state);
 		switch (state) {
       case 'readTotal':
 				if (buffer.length - pos >= 4) {
-				  console.log('pos is ' + pos);
-					console.log('buffer is ' + buffer.toString());
           totalBytes = buffer.readUInt32LE(pos);
 	        pos += 4;
 	  			bytesLeft = totalBytes-4;
 		  		fullBuffer = new Buffer(4);
 					fullBuffer.writeUInt32LE(totalBytes,0);
 			  	state = 'readData';
-					console.log('after reatTotal fullBuffer is');
-					outstart();
           self.read(buffer);
 			  } else {
 					totalBuffer = new Buffer(buffer.length-pos);
@@ -64,14 +57,12 @@ module.exports = function(stream) {
 			case 'readData':
 				if (bytesLeft <= buffer.length) {
           // - the rest of data is fully contained in buffer
-				  console.log('contained');
           try {
             var piece = new Buffer(bytesLeft);
 						buffer.copy(piece, 0, pos, pos+bytesLeft);
             fullBuffer = Buffer.concat([fullBuffer, piece]);
             pos += bytesLeft;
 					  bytesLeft = 0;
-					  console.log('fullBuffer is *' + fullBuffer + '*');
 					  self.newData(fullBuffer);
 						
 					} catch (ee) {
@@ -81,23 +72,16 @@ module.exports = function(stream) {
           state = 'readTotal';
 					if (pos < buffer.length) {
 				    // and another thing starts after
-						console.log('continuing');
             
             return self.read(buffer);
 					} else {
             pos = 0;
 					}
 			  } else {
-					console.log('continues');
-					console.log('bytesLeft is ' + bytesLeft);
-					console.log('buffer.length is ' + buffer.length);
-					console.log('pos is ' + pos);
 				  // - the data continues after end of buffer
 					var piece = new Buffer(buffer.length - pos);
 					buffer.copy(piece, 0, pos, buffer.length);
           fullBuffer = Buffer.concat([fullBuffer, piece]);
-					console.log('start of fullBuffer is now');
-					outstart();
 					pos = 0;
 					bytesLeft -= piece.length;
 				} 
