@@ -93,7 +93,12 @@ module.exports = function(stream) {
     var totalLength = buffer.readUInt32LE(0);
     var jsonLength = buffer.readUInt16LE(4);
     var json = buffer.toString('utf8', 6, jsonLength+6);
-    var meta = JSON.parse(json);
+    try {
+		var meta = JSON.parse(json);
+		} catch (e) {
+      console.log('Problem parsing meta:', e);
+			var meta = {};
+		}
     return { meta: meta, buffer: buffer.slice(6+jsonLength) };
   }
 
