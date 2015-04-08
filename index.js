@@ -55,7 +55,7 @@ module.exports = function(stream) {
         self.read(buffer);
         break;
       case 'readData':
-        if (bytesLeft <= buffer.length) {
+        if (bytesLeft + pos <= buffer.length) {
           // - the rest of data is fully contained in buffer
           try {
             var piece = new Buffer(bytesLeft);
